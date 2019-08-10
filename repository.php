@@ -1,5 +1,13 @@
 <?php
 
+if (!isset($_GET["page"]))
+    $current_page = 1;
+else
+{
+  $current_page = $_GET["page"];
+  echo Repository::getInstance()->getProductPerPage($current_page);
+}
+
 class Repository
 {
   const DB_USER = "root";
@@ -42,6 +50,19 @@ class Repository
 
     return false;
   }
+
+  private function encodeDataToJSON($mysqliResult)
+  {
+    $items = [];
+
+    while ($item = $mysqliResult->fetch_assoc())
+    {
+      $item['price'] = 'Rp.' . $item['price'];
+      array_push($items, $item);
+    }
+
+    return $items;
+  }
   
   public function getProductPerPage($page = 1)
   {
@@ -57,16 +78,15 @@ class Repository
     return json_encode($this->encodeDataToJSON($result));
   }
 
-  private function encodeDataToJSON($mysqliResult)
+  public function getTotalProduct()
   {
-    $items = [];
+    if ($this->isDatabaseError())
+      return $this->error_message;
 
-    while ($item = $mysqliResult->fetch_assoc())
-    {
-      $item['price'] = 'Rp.' . $item['price'];
-      array_push($items, $item);
-    }
-
-    return $items;
+    $query = "SELECT COUNT(*) FROM `product`";
+    $result = self::$instance->databaseConnection->query($query);
+    
+    $total_row = $result->fetch_row()[0];
+    return $total_row;
   }
 }
