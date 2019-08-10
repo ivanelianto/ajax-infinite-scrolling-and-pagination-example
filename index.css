@@ -20,36 +20,6 @@ body {
   font-size: 1rem;
 }
 
-.pagination-wrapper {
-  display: flex;
-  justify-content: flex-start;
-  width: 768px;
-  overflow-x: scroll;
-}
-
-.pagination-wrapper .page-button {
-  min-width: 50px;
-  height: 50px;
-  border: none;
-  border-radius: 5px;
-  border: 2px solid var(--primary-background);
-  background-color: var(--light-background);
-  color: var(--primary-background);
-  margin-right: 1em;
-}
-
-.pagination-wrapper .page-button:not(:last-child) {
-  margin-right: 1em;
-}
-
-.page-button:hover {
-  cursor: pointer;
-}
-
-.page-button .active {
-  background-color: var(--primary-background);
-  color: var(--light-background);
-}
 .item-wrapper {
   display: flex;
   flex-flow: row wrap;

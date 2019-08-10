@@ -11,8 +11,8 @@
 
 <?php
 require_once("./repository.php");
-$total_row = Repository::getInstance()->getTotalProduct() / Repository::ITEM_PER_PAGE;
-$jsonData = Repository::getInstance()->getProductPerPage(1);
+$current_page = 1;
+$jsonData = Repository::getInstance()->getProductPerPage($current_page);
 
 $items = json_decode($jsonData);
 ?>
@@ -48,31 +48,27 @@ $items = json_decode($jsonData);
   ?>
 </div>
 
-<div class="pagination-wrapper">
-  <?php
-    for ($i = 1; $i <= $total_row; $i++)
-    {
-  ?>
-  <button class="page-button" value=<?= $i ?> onclick="getData(this)">
-    <?= $i ?>
-  </button>
-  <?php
-    }
-  ?>
-</div>
-
 </body>
 
 <script src="./jquery-3.4.1.min.js"></script>
 <script>
-function getData(element)
+
+$(document).ready(() => {
+  getData(<?= ++$current_page?>)
+
+  $(window).scroll(() => {
+    if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+      getData(<?= ++$current_page?>)
+    }
+  });
+})
+
+function getData(page)
 {
   $.ajax({
-    url: `http://localhost:8001/repository.php?page=${element.value}`,
+    url: `http://localhost:8001/repository.php?page=${page}`,
     method: "GET",
     success: (response) => {
-      $(".item-wrapper").empty()
-
       let dirtyHTMLItems = "";
 
       let items = JSON.parse(response)
@@ -103,7 +99,7 @@ function getData(element)
         `
       })
 
-      $(".item-wrapper").html(dirtyHTMLItems);
+      $(".item-wrapper").append(dirtyHTMLItems);
     }
   })
 }

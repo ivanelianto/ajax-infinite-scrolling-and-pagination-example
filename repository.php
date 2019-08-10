@@ -14,7 +14,7 @@ class Repository
   const DB_PASSWORD = "";
   const DB_DATABASE = "tokodelia";
   const DB_HOST = "localhost";
-  const ITEM_PER_PAGE = 10;
+  const ITEM_PER_PAGE = 12;
 
   private $error_message = null;
 
