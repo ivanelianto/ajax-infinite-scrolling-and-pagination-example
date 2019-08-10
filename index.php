@@ -10,42 +10,59 @@
 <body>
 
 <?php
-require_once("./repository.php");
-$current_page = 1;
-$jsonData = Repository::getInstance()->getProductPerPage($current_page);
+/**
+ * TODO: Import Repository.php
+ * 
+ */
 
-$items = json_decode($jsonData);
+ /**
+ * TODO: Create Current Page Variable To Store Current Loaded Page Data
+ * 
+ */
+
+ /**
+ * TODO: Get Product Per Page
+ * 
+ */
+
+/**
+ * TODO: Parse JSON Products Data
+ * 
+ */
 ?>
 
 <div class="item-wrapper">
   <?php
-  foreach ($items as $item)
-  {
+  /**
+   * TODO: Loop Each Product
+   */
   ?>
     <div class="item">
       <div class="top-wrapper">
         <div class="id-wrapper">
-          <span class="id"><?= $item->id ?></span>
+          <span class="id"><?php /**TODO: Display Product Stock*/ ?></span>
         </div>
         
         <div class="name-wrapper">
-          <span class="name"><?= $item->name ?></span>
+          <span class="name"><?php /**TODO: Display Product Stock*/ ?></span>
         </div>
       </div>
 
       <div class="main-data-wrapper">
         <div class="price">
-          <span><?= $item->price ?></span>
+          <span><?php /**TODO: Display Product Stock*/ ?></span>
         </div>
         
         <div class="stock">
-          <span><b><?= $item->stock ?></b> item(s) left</span>
+          <span>
+            <b>
+              <?php /**TODO: Display Product Stock*/ ?>
+            </b>
+            &nbsp;item(s) left
+          </span>
         </div>
       </div>
     </div>
-  <?php
-  }
-  ?>
 </div>
 
 </body>
@@ -54,54 +71,20 @@ $items = json_decode($jsonData);
 <script>
 
 $(document).ready(() => {
-  getData(<?= ++$current_page?>)
+  /**
+   * TODO: Load Second Page Data So That Page Have Enough For Scrolled.
+   *
+   */
 
-  $(window).scroll(() => {
-    if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-      getData(<?= ++$current_page?>)
-    }
-  });
+  /**
+   * TODO: Detect Scroll to Bottom and Load Next Page Data
+   *
+   */
 })
 
-function getData(page)
-{
-  $.ajax({
-    url: `http://localhost:8001/repository.php?page=${page}`,
-    method: "GET",
-    success: (response) => {
-      let dirtyHTMLItems = "";
-
-      let items = JSON.parse(response)
-
-      items.forEach((v, k) => {
-        dirtyHTMLItems += `
-        <div class="item">
-          <div class="top-wrapper">
-            <div class="id-wrapper">
-              <span class="id">${v['id']}</span>
-            </div>
-            
-            <div class="name-wrapper">
-              <span class="name">${v['name']}</span>
-            </div>
-          </div>
-
-          <div class="main-data-wrapper">
-            <div class="price">
-              <span>${v['price']}</span>
-            </div>
-            
-            <div class="stock">
-              <span><b>${v['stock']}</b> item(s) left</span>
-            </div>
-          </div>
-        </div>
-        `
-      })
-
-      $(".item-wrapper").append(dirtyHTMLItems);
-    }
-  })
+/**
+ * jQuery AJAX Infinite Scrooling Simple Logic
+ */
 }
 </script>
 </html>
