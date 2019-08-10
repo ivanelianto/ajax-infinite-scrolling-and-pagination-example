@@ -15,12 +15,12 @@
  * 
  */
 
- /**
- * TODO: Create Current Page Variable To Store Current Loaded Page Data
+/**
+ * TODO: Get Total Row
  * 
  */
 
- /**
+/**
  * TODO: Get Product Per Page
  * 
  */
@@ -65,26 +65,21 @@
     </div>
 </div>
 
+<div class="pagination-wrapper">
+  <?php
+    /**
+     * TODO: Loop Total Page and Show Button with Page Number
+     * 
+     */
+  ?>
+</div>
+
 </body>
 
 <script src="./jquery-3.4.1.min.js"></script>
 <script>
-
-$(document).ready(() => {
-  /**
-   * TODO: Load Second Page Data So That Page Have Enough For Scrolled.
-   *
-   */
-
-  /**
-   * TODO: Detect Scroll to Bottom and Load Next Page Data
-   *
-   */
-})
-
 /**
- * jQuery AJAX Infinite Scrooling Simple Logic
+ * jQuery AJAX Pagination Simple Logic
  */
-}
 </script>
 </html>
